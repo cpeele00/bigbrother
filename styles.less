@@ -1,0 +1,211 @@
+html {
+	font-size: 18px;
+}
+
+@media (max-width:767px){
+	html {
+		font-size: 14px;
+	}
+}
+
+body {
+	background-color: #222222;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+	font-family: 'Oswald', sans-serif;
+	text-transform: uppercase;
+	font-weight: 800;
+	color: #222222;
+}
+
+h4, h5 {
+	color: #E11D1F;
+}
+
+
+h1 {
+	font-size: 4rem;
+}
+
+h3 {
+	margin-bottom: 1.2rem;
+}
+
+h3, h6, p {
+	color: #FBE5A9;
+}
+
+h6 {
+	font-size: 1.2rem;
+}
+
+h3:before {
+	background-image: url('red-star.png');
+	background-size: 45px 45px;
+	display: inline-block;
+	width: 45px;
+	height: 45px;
+	content: '';
+	margin-right: 8px;
+	position: relative;
+	top: 5px;
+}
+
+@media (max-width:767px){
+	h3:before {
+		background-image: url('red-star.png');
+		background-size: 35px 35px;
+		display: inline-block;
+		width: 35px;
+		height: 35px;
+		content: '';
+		margin-right: 5px;
+		position: relative;
+		top: 8px;
+	}
+}
+
+h6:before {
+	background-image: url('red-star.png');
+	background-size: 15px 15px;
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	content: '';
+	margin-right: 4px;
+	position: relative;
+	top: 0;
+}
+
+
+main {
+	padding: 4rem;	
+}
+
+@media (max-width:767px){
+	main {
+		padding: 2rem 0;
+	}	
+}
+
+#hero-section {
+	background-color: #E11D1F;
+	position: relative;
+	margin-bottom: 0; 
+	min-height: 430px;
+}
+
+#black-fist {
+	height: 200px;
+}
+
+#hero-section-tagline {
+	margin-top: 15px;
+}
+
+#hero-section-tagline > span {
+	font-weight: 600; 
+	font-size: 3rem; 
+	color: #000;
+}
+
+.black-star {
+	width: 70px; 
+	display: inline; 
+	margin-right: 10px;
+}
+
+.black-star:last-child {
+	margin-right: 0;
+}
+
+.code {
+	font-family: Consolas,Liberation Mono,Courier, monospace;
+	padding: 25px;
+	background-color: #000;
+	color: #888;
+	height: auto;
+	text-align: left;
+}
+
+@media (max-width:767px){
+	.code {
+		padding: 15px;
+		overflow-x: auto;
+	}
+}
+
+.code.special {
+	top: 30px;
+}
+
+p.api {
+	margin-bottom: 0;
+}
+
+.api-title {
+	font-weight: bold;
+	color: #E11D1F;
+}
+
+.top-margin {
+	margin-top: 20px;
+}
+
+.top-margin.code {
+	margin-top: 60px;
+}
+
+.callout-dark {
+	background-color: #333;
+}
+
+.callout-dark > p {
+	color: #999;
+}
+
+.row {
+	margin-bottom: 2.5rem;
+}
+
+@media (max-width:767px){
+	.row {
+		margin-bottom: 2.0rem;
+	}
+}
+
+.features {
+	margin: 2px 0;
+	list-style-type: none;
+	border-left: 5px solid #E11D1F;
+	padding: 5px 15px;
+}
+
+.features > li {
+	color: #FBE5A9;
+}
+
+.credits {
+	font-family: 'Oswald', sans-serif;
+	text-transform: uppercase;
+	font-weight: 800;
+	font-size: 1.9375rem; 
+	line-height: 1.4;
+	color: #FBE5A9;
+}
+
+@media (max-width:767px){
+	.credits {
+		font-family: 'Oswald', sans-serif;
+		text-transform: uppercase;
+		font-weight: 800;
+		font-size: 1rem; 
+		line-height: 1.4;
+		color: #FBE5A9;
+	}
+}
