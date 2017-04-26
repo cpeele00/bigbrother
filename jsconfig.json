@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "target": "ES7",
+        "experimentalDecorators": true
+    },
+    "exclude": [
+        "/node_modules/"
+    ]
+}
