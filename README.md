@@ -1,5 +1,5 @@
 # Big Brother
 
-## This Lib is not correctly uploaded yet. Will Remove this note once it is...so don't download it yet :-)
+## A simple and flexible form validation lib for JavaScript apps. Works with React.js as well!
 
-## Check out the product page [here!](https://cpeele00.github.io/bigbrother/)
+### For the complete documentation, check out the product page [here!](https://cpeele00.github.io/bigbrother/)

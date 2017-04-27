@@ -19,7 +19,6 @@ module.exports = {
     },
     plugins: [
         new webpack.NoEmitOnErrorsPlugin(),
-        new webpack.LoaderOptionsPlugin({debug: false}),
-        new UglifyJSPlugin({minimize: true, comments: false})
+        new webpack.LoaderOptionsPlugin({debug: false})
     ]
 }
