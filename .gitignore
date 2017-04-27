@@ -210,3 +210,5 @@ FakesAssemblies/
 .happypack/*
 
 .npm-debug.log.*
+
+npm/
