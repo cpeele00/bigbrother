@@ -1,5 +1,6 @@
 import find from 'lodash/find';
 import filter from 'lodash/filter';
+import forEach from 'lodash/forEach';
 
 
 class BigBrother {
@@ -63,7 +64,13 @@ class BigBrother {
 
 
   isValid() {
-    if (this.errors.length === 0 && (this.validItems.length === this.currentRequiredItems))
+    if (this.isFormValid){
+      if (this.isDevMode)
+        this.logInvalidAndValid();
+
+      return true;
+
+    } else if (this.errors.length === 0 && (this.validItems.length === this.currentRequiredItems))
       return true;
     else {
       if (this.isDevMode)
@@ -84,6 +91,7 @@ class BigBrother {
     console.log('current required items count: ' + this.currentRequiredItems);
     console.log('invalid items count: ' + errors.length);
     console.log('valid items count: ' + validItems.length);
+    console.log('overall valid status: ' + this.isFormValid);
     console.table(allResults);
   }
 
@@ -119,6 +127,17 @@ class BigBrother {
         this.currentRequiredItems--;
     } else {
       this.currentRequiredItems--;
+    }
+  }
+
+
+  initializeComponentsAsValid(components){
+    if (components && components.length > 0){
+      forEach(components, (component) => {
+        this._trackValidItems(component, true);
+      });
+
+      this.isFormValid = true;
     }
   }
 
