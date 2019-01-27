@@ -1,184 +1,197 @@
 import find from 'lodash/find';
 import filter from 'lodash/filter';
 import forEach from 'lodash/forEach';
+import map from 'lodash/map';
 
 
 class BigBrother {
-
   constructor(isDevMode = false) {
     this.isDevMode = isDevMode;
     this.isFormValid = false;
-    this.currentRequiredItems = 0;
-    this.minRequiredFieldCount = null;
-    this.errors = [];
-    this.validItems = [];
+    this.registeredComponents = [];
   }
 
 
-  setMinRequiredFieldCount(minRequiredFieldCount) {
-    this.minRequiredFieldCount = minRequiredFieldCount;
-    this.currentRequiredItems = minRequiredFieldCount;
+  registerComponents(components) {
+    forEach(components, component => {
+      this._trackComponent(component);
+    });
+
+    this._logValidStatus(this.registeredComponents);
+
+    return this.isValid();
   }
 
 
-  setValidity(isFormDirty, componentId, isComponentValid, isRequired = false, isVisible = true, onInvalidCallback, onIsValidCallback) {
-    if (!isRequired)
-      return;
+  registerComponent(component) {
+    this._trackComponent(component);
 
-    if (!isVisible) {
-      this._handleComponentNotVisibleValidation(isFormDirty);
-      return;
-    }
+    this._logValidStatus(this.registeredComponents);
 
-
-    // STEP 1) Track our valid and invalid items
-    if (isComponentValid)
-      this._trackValidItems(componentId, isComponentValid);
-    else
-      this._trackInvalidItems(componentId, isComponentValid);
-
-
-    // STEP 2) If we have no errors and the number of required items has been satisfied
-    // Then the form is valid
-    if (this.errors.length === 0 && (this.validItems.length === this.currentRequiredItems))
-      this.isFormValid = true;
-    else
-      this.isFormValid = false;
-
-
-    // STEP 3) If the form is dirty (the user tried to submit it) and
-    // the form is valid
-    if (isFormDirty && this.isFormValid) {
-      // Fire off the isValid callback method
-      if (onIsValidCallback)
-        onIsValidCallback();
-    }
-
-    // Otherwise, if the form is dirty and the form is invalid
-    if (isFormDirty && !this.isFormValid) {
-      // Fire off the invalid callback method
-      if (onInvalidCallback)
-        onInvalidCallback();
-    }
+    return this.isValid();
   }
 
 
   isValid() {
-    if (this.isFormValid){
-      if (this.isDevMode)
-        this.logInvalidAndValid();
+    const isFormValid = this._areComponentsValid(this.registeredComponents);
 
-      return true;
-
-    } else if (this.errors.length === 0 && (this.validItems.length === this.currentRequiredItems))
-      return true;
-    else {
-      if (this.isDevMode)
-        this.logInvalidAndValid();
-
-      return false;
-    }
+    return isFormValid;
   }
 
 
-  logInvalidAndValid() {
-    let validItems = this.validItems.slice();
-    let errors = this.errors.slice();
-    let allResults = validItems.concat(errors);
+  unregisterComponent(component) {
+    if (find(this.registeredComponents, component => component.id))
+      this.registeredComponents = filter(this.registeredComponents, x => x.id !== component.id);
 
-    console.log('max required items count: ' + this.maxRequiredFieldCount);
-    console.log('min required items count: ' + this.minRequiredFieldCount);
-    console.log('current required items count: ' + this.currentRequiredItems);
-    console.log('invalid items count: ' + errors.length);
-    console.log('valid items count: ' + validItems.length);
-    console.log('overall valid status: ' + this.isFormValid);
-    console.table(allResults);
+    return this.isValid();
   }
 
 
-  logInvalid() {
-    console.table(this.errors);
+  makeAllValid() {
+    this.registeredComponents = map(this.registeredComponents, component => {
+      return {
+        id: component.id,
+        value: '',
+        isValid: true,
+        isRequired: component.isRequired,
+        isVisible: component.isVisible,
+        isDisabled: component.isDisabled
+      };
+    });
+
+
+    this._logValidStatus(this.registeredComponents);
   }
 
 
-  logIsValid() {
-    console.table(this.validItems);
-  }
+  setValidity(isFormDirty, componentId, isComponentValid, shouldValidate = false, isVisible = true, isDisabled = false, value = '', onIsValidCallback, onInvalidCallback) {
+    if (!shouldValidate)
+      return;
 
 
-  registerComponent(componentId, isValid = false) {
-    if (isValid)
-      this._trackValidItems(componentId, true);
-    else
-      this._trackInvalidItems(componentId, false);
-
-    this.currentRequiredItems++;
-  }
+    this.registeredComponents = map(this.registeredComponents, component => {
+      return component.id === componentId ? { ...component, isValid: isComponentValid, isVisible, isDisabled, value } : component;
+    });
 
 
-  unRegisterComponent(componentId) {
-    this.validItems = filter(this.validItems, x => x.componentId !== componentId);
-    this.errors = filter(this.errors, error => error.componentId !== componentId);
-
-    let tempRequiredItemsCount = this._decrementRequiredCount(this.currentRequiredItems);
-
-    if (this.minRequiredFieldCount) {
-      if (tempRequiredItemsCount > this.minRequiredFieldCount)
-        this.currentRequiredItems--;
-    } else {
-      this.currentRequiredItems--;
-    }
-  }
+    const isFormValid = this._areComponentsValid(this.registeredComponents);
 
 
-  initializeComponentsAsValid(components){
-    if (components && components.length > 0){
-      forEach(components, (component) => {
-        this._trackValidItems(component, true);
-      });
-
-      this.isFormValid = true;
-    }
-  }
-
-
-  _decrementRequiredCount(requiredCount) {
-    let tempRequiredCount = requiredCount;
-
-    return tempRequiredCount--;
-  }
-
-
-  _trackValidItems(componentId, isComponentValid) {
-    if (!find(this.validItems, validItems => validItems.componentId === componentId)) {
-      this.validItems.push({ componentId, isComponentValid });
-      this.errors = filter(this.errors, error => error.componentId !== componentId);
-    }
-  }
-
-
-  _trackInvalidItems(componentId, isComponentValid) {
-    if (!find(this.errors, invalidItems => invalidItems.componentId === componentId)) {
-      this.validItems = filter(this.validItems, x => x.componentId !== componentId);
-      this.errors.push({ componentId, isComponentValid });
-    }
-  }
-
-
-  _handleComponentNotVisibleValidation(isFormDirty){
-    if (this.errors.length === 0 && (this.validItems.length === this.currentRequiredItems))
-      this.isFormValid = true;
-    else
-      this.isFormValid = false;
-    
-    
-    if (isFormDirty && this.isFormValid) {
+    if (isFormDirty && isFormValid) {
       // Fire off the isValid callback method
       if (onIsValidCallback)
         onIsValidCallback();
     }
+
+
+    if (isFormDirty && !isFormValid) {
+      // Fire off the invalid callback method
+      if (onInvalidCallback)
+        onInvalidCallback();
+    }
+
+
+    this._logValidStatus(this.registeredComponents);
   }
 
+
+  _logValidStatus(registeredComponents) {
+    if (!this.isDevMode)
+      return;
+
+    const validItems = filter(registeredComponents, x => x.isValid === true);
+    const invalidItems = filter(registeredComponents, x => x.isValid === false);
+
+    console.log('===========================================================');
+    console.log('                 BIG BROTHER DEBUGIFICATION                ');
+    console.log('===========================================================');
+    console.log('Current registered components count: ' + registeredComponents.length);
+    console.log('Valid components count: ' + validItems.length);
+    console.log('Invalid components count: ' + invalidItems.length);
+    console.log('Overall form validity status: ' + this.isValid());
+    console.table(registeredComponents);
+  }
+
+
+  _trackComponent(component) {
+    if (!find(this.registeredComponents, x => x.id === component.id)) {
+
+      if (!component.id)
+        throw new Error('Component id is required');
+
+      const isValid = this._determineComponentValidityBasedOnArguments(component);
+
+      this.registeredComponents.push({
+        id: component.id,
+        value: component.value,
+        isValid: isValid,
+        isRequired: component.isRequired || false,
+        isVisible: component.isVisible || true,
+        isDisabled: component.isDisabled || false
+      });
+    }
+  }
+
+
+  _determineComponentValidityBasedOnArguments(component) {
+    const isComponentValid = () => {
+      if (component.isValid === false && component.isVisible === true)
+        return false;
+      else if (component.isValid === false && component.isVisible === false)
+        return true;
+      else if (component.isValid === true && component.isDisabled === true)
+        return true;
+      else {
+        if (component.isRequired === false)
+          return true;
+        else if (component.isRequired === true && component.isDisabled === false && component.value)
+          return true;
+        else if (component.isRequired === true && component.isDisabled === true && component.value)
+          return false;
+        else if (component.isRequired === true && component.isVisible === true && !component.value)
+          return false;
+        else if (component.isRequired === true && component.isVisible === false && !component.value)
+          return true;
+        else if (component.isRequired === true && component.isVisible === true && component.value)
+          return true;
+        else if (component.isRequired === true && component.isVisible === true)
+          return false;
+        else if (component.isRequired === true && component.isVisible === false)
+          return true;
+        else if (component.isRequired === true && component.isDisabled === true)
+          return false;
+        else
+          return false;
+      }
+    };
+
+    const isValid = isComponentValid();
+
+    return isValid;
+  }
+
+
+  _areComponentsValid(components) {
+    // loop over registered components
+    // and make sure their isValid properties are all set to true
+    // if any component is not valid then the whole batch is invalid
+    let isComponentValid = false;
+
+    forEach(components, component => {
+      const isValid = this._determineComponentValidityBasedOnArguments(component);
+
+      // check the validity of the registered component
+      if (isValid) { //TODO: i might have to add the determin check here...
+        isComponentValid = true;
+      } else {
+        isComponentValid = false;
+        return false;
+      }
+    });
+
+
+    return isComponentValid;
+  }
 }
 
 
