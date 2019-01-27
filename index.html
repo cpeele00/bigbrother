@@ -35,7 +35,7 @@
 		</h3>
 		<div class="row small-12 mediumn-5 large-5 columns text-center">
 			<aside class="text-center code special">
-				this.bigBrother = new BigBrother();
+				const bigBrother = new BigBrother();
 			</aside>
 		</div>
 
@@ -141,7 +141,7 @@
 		<div class="row small-12 mediumn-5 large-12 columns">
 			<h5>Register all of your components / fields</h5>
 			<aside class="code special">
-				this.bigBrother.registerComponents([ <br>
+				bigBrother.registerComponents([ <br>
 				&nbsp; &nbsp; {id: 'first-name', isValid: true, value: '', isRequired: true, isVisible: true, isDisabled: false},
 				<br>
 				&nbsp; &nbsp; {id: 'last-name', isValid: true, value: '', isRequired: true, isVisible: true, isDisabled: false},
