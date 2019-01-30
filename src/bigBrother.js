@@ -1,9 +1,3 @@
-import find from 'lodash/find';
-import filter from 'lodash/filter';
-import forEach from 'lodash/forEach';
-import map from 'lodash/map';
-
-
 class BigBrother {
   constructor(isDevMode = false) {
     this.isDevMode = isDevMode;
@@ -13,7 +7,7 @@ class BigBrother {
 
 
   registerComponents(components) {
-    forEach(components, component => {
+    components.forEach(component => {
       this._trackComponent(component);
     });
 
@@ -40,15 +34,15 @@ class BigBrother {
 
 
   unregisterComponent(component) {
-    if (find(this.registeredComponents, component => component.id))
-      this.registeredComponents = filter(this.registeredComponents, x => x.id !== component.id);
+    if (this.registeredComponents.find(component => component.id))
+      this.registeredComponents = this.registeredComponents.filter(x => x.id !== component.id);
 
     return this.isValid();
   }
 
 
   makeAllValid() {
-    this.registeredComponents = map(this.registeredComponents, component => {
+    this.registeredComponents = this.registeredComponents.map(component => {
       return {
         id: component.id,
         value: '',
@@ -69,7 +63,7 @@ class BigBrother {
       return;
 
 
-    this.registeredComponents = map(this.registeredComponents, component => {
+    this.registeredComponents = this.registeredComponents.map(component => {
       return component.id === componentId ? { ...component, isValid: isComponentValid, isVisible, isDisabled, value } : component;
     });
 
@@ -99,8 +93,8 @@ class BigBrother {
     if (!this.isDevMode)
       return;
 
-    const validItems = filter(registeredComponents, x => x.isValid === true);
-    const invalidItems = filter(registeredComponents, x => x.isValid === false);
+    const validItems = registeredComponents.filter(x => x.isValid === true);
+    const invalidItems = registeredComponents.filter(x => x.isValid === false);
 
     console.log('===========================================================');
     console.log('                 BIG BROTHER DEBUGIFICATION                ');
@@ -114,7 +108,7 @@ class BigBrother {
 
 
   _trackComponent(component) {
-    if (!find(this.registeredComponents, x => x.id === component.id)) {
+    if (!this.registeredComponents.find(x => x.id === component.id)) {
 
       if (!component.id)
         throw new Error('Component id is required');
@@ -177,7 +171,7 @@ class BigBrother {
     // if any component is not valid then the whole batch is invalid
     let isComponentValid = false;
 
-    forEach(components, component => {
+    components.forEach(component => {
       const isValid = this._determineComponentValidityBasedOnArguments(component);
 
       // check the validity of the registered component
