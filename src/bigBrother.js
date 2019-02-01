@@ -28,13 +28,6 @@ class BigBrotherV2 {
   }
 
 
-  isValid() {
-    const isFormValid = this._areComponentsValid(this.registeredComponents);
-
-    return isFormValid;
-  }
-
-
   unregisterComponent(component) {
     if (find(this.registeredComponents, component => component.id))
       this.registeredComponents = filter(this.registeredComponents, x => x.id !== component.id);
@@ -69,13 +62,13 @@ class BigBrotherV2 {
 
     const isFormValid = this._areComponentsValid(this.registeredComponents);
 
-    if (isFormDirty && isFormValid) {
+    if (isFormValid) {
       // Fire off the isValid callback method
       if (onIsValidCallback)
         onIsValidCallback();
     }
 
-    if (isFormDirty && !isFormValid) {
+    if (!isFormValid) {
       // Fire off the invalid callback method
       if (onInvalidCallback)
         onInvalidCallback();
