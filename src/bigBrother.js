@@ -1,13 +1,16 @@
-class BigBrother {
+import { find, filter, forEach, map } from 'lodash-es';
+
+
+class BigBrotherV2 {
+
   constructor(isDevMode = false) {
     this.isDevMode = isDevMode;
-    this.isFormValid = false;
     this.registeredComponents = [];
   }
 
 
   registerComponents(components) {
-    components.forEach(component => {
+    forEach(components, component => {
       this._trackComponent(component);
     });
 
@@ -19,7 +22,6 @@ class BigBrother {
 
   registerComponent(component) {
     this._trackComponent(component);
-
     this._logValidStatus(this.registeredComponents);
 
     return this.isValid();
@@ -34,15 +36,15 @@ class BigBrother {
 
 
   unregisterComponent(component) {
-    if (this.registeredComponents.find(component => component.id))
-      this.registeredComponents = this.registeredComponents.filter(x => x.id !== component.id);
+    if (find(this.registeredComponents, component => component.id))
+      this.registeredComponents = filter(this.registeredComponents, x => x.id !== component.id);
 
     return this.isValid();
   }
 
 
   makeAllValid() {
-    this.registeredComponents = this.registeredComponents.map(component => {
+    this.registeredComponents = map(this.registeredComponents, component => {
       return {
         id: component.id,
         value: '',
@@ -53,7 +55,6 @@ class BigBrother {
       };
     });
 
-
     this._logValidStatus(this.registeredComponents);
   }
 
@@ -62,14 +63,11 @@ class BigBrother {
     if (!shouldValidate)
       return;
 
-
-    this.registeredComponents = this.registeredComponents.map(component => {
+    this.registeredComponents = map(this.registeredComponents, component => {
       return component.id === componentId ? { ...component, isValid: isComponentValid, isVisible, isDisabled, value } : component;
     });
 
-
     const isFormValid = this._areComponentsValid(this.registeredComponents);
-
 
     if (isFormDirty && isFormValid) {
       // Fire off the isValid callback method
@@ -77,13 +75,11 @@ class BigBrother {
         onIsValidCallback();
     }
 
-
     if (isFormDirty && !isFormValid) {
       // Fire off the invalid callback method
       if (onInvalidCallback)
         onInvalidCallback();
     }
-
 
     this._logValidStatus(this.registeredComponents);
   }
@@ -93,8 +89,8 @@ class BigBrother {
     if (!this.isDevMode)
       return;
 
-    const validItems = registeredComponents.filter(x => x.isValid === true);
-    const invalidItems = registeredComponents.filter(x => x.isValid === false);
+    const validItems = filter(registeredComponents, x => x.isValid === true);
+    const invalidItems = filter(registeredComponents, x => x.isValid === false);
 
     console.log('===========================================================');
     console.log('                 BIG BROTHER DEBUGIFICATION                ');
@@ -108,7 +104,7 @@ class BigBrother {
 
 
   _trackComponent(component) {
-    if (!this.registeredComponents.find(x => x.id === component.id)) {
+    if (!find(this.registeredComponents, x => x.id === component.id)) {
 
       if (!component.id)
         throw new Error('Component id is required');
@@ -171,8 +167,8 @@ class BigBrother {
     // if any component is not valid then the whole batch is invalid
     let isComponentValid = false;
 
-    components.forEach(component => {
-      const isValid = this._determineComponentValidityBasedOnArguments(component);
+    forEach(components, component => {
+      let isValid = this._determineComponentValidityBasedOnArguments(component);
 
       // check the validity of the registered component
       if (isValid) { //TODO: i might have to add the determin check here...
@@ -183,10 +179,10 @@ class BigBrother {
       }
     });
 
-
     return isComponentValid;
   }
+
 }
 
 
-export default BigBrother;
+export default BigBrotherV2;
