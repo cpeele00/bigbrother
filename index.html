@@ -180,6 +180,15 @@
 			</aside>
 		</div>
 
+
+		<div class="row small-12 mediumn-5 large-12 columns">
+			<h5>Check the form's validity</h5>
+			<aside class="code special">
+				bigBrother.isValid()
+			</aside>
+		</div>
+
+
 		<h3 class="top-margin text-center">
 			<div class="star"></div>
 			API
@@ -270,6 +279,18 @@
 				isValid, isRequired, true, ( ) => {
 				<br /> &nbsp;&nbsp;&nbsp;&nbsp; displayErrorMessage(); <br /> &nbsp;&nbsp;}, ( ) => { <br />
 				&nbsp;&nbsp;&nbsp;&nbsp; dismissErrorMessage(); <br /> &nbsp;&nbsp;}); <br /> }
+			</p>
+		</div>
+
+
+		<div class="row columns">
+			<h6>isValid</h6>
+			<p class="api"><span class="api-title">Description:</span> Gets the valid state of your form. This is good for not
+				allowing the user to submit the form until all fields are valid</p>
+			<p class="api"><span class="api-title">Example:</span> <br /> function submitForm(){ <br /> &nbsp;&nbsp;
+				this.setState({isFormDirty: true}); <br /> &nbsp;&nbsp; if (bigBrother.isValid()) { <br /> &nbsp;&nbsp;&nbsp;&nbsp;
+				saveFormValues(); <br /> &nbsp;&nbsp; }
+				else { <br /> &nbsp;&nbsp;&nbsp;&nbsp; displayErrorMessage(); <br /> &nbsp;&nbsp; } <br /> }
 			</p>
 		</div>
 
