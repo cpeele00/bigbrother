@@ -16,7 +16,7 @@ class BigBrotherV2 {
 
     this._logValidStatus(this.registeredComponents);
 
-    return this._isValid();
+    return this.isValid();
   }
 
 
@@ -24,7 +24,7 @@ class BigBrotherV2 {
     this._trackComponent(component);
     this._logValidStatus(this.registeredComponents);
 
-    return this._isValid();
+    return this.isValid();
   }
 
 
@@ -32,7 +32,7 @@ class BigBrotherV2 {
     if (find(this.registeredComponents, component => component.id))
       this.registeredComponents = filter(this.registeredComponents, x => x.id !== component.id);
 
-    return this._isValid();
+    return this.isValid();
   }
 
 
@@ -91,7 +91,7 @@ class BigBrotherV2 {
     console.log('Current registered components count: ' + registeredComponents.length);
     console.log('Valid components count: ' + validItems.length);
     console.log('Invalid components count: ' + invalidItems.length);
-    console.log('Overall form validity status: ' + this._isValid());
+    console.log('Overall form validity status: ' + this.isValid());
     console.table(registeredComponents);
   }
 
@@ -176,7 +176,7 @@ class BigBrotherV2 {
   }
 
 
-  _isValid() {
+  isValid() {
     const isFormValid = this._areComponentsValid(this.registeredComponents);
 
     return isFormValid;
