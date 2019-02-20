@@ -156,6 +156,10 @@ p.api {
   margin-top: 20px;
 }
 
+.top-margin-big {
+	margin-top: 40px;
+}
+
 .top-margin-small {
   margin-top: 10px;
 }
