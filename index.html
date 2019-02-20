@@ -41,7 +41,8 @@
 
 		<div class="row column">
 			<p class="top-margin">Let's face it, form validation can be hard, <em>really hard</em>; just when you say to
-				yourself "I just need to add a 'little' form validation"...BAM! it morphs into this monster of a task and attacks
+				yourself "I just need to add a 'little' form validation"...BAM! it morphs into this monster of a task and
+				attacks
 				you from behind like a filthy disloyalist party
 				member!
 			</p>
@@ -58,14 +59,17 @@
 				Big Brother is a simple and flexible "form" validation lib that handles the validation and the coordination of
 				valid/invalid states of your form. It does NOT validate your fields or components themselves as that's the easy
 				part. <br /> What it
-				does do is take the validity of each component that is required and determines whether or not your form is valid or
-				invalid while providing handy callbacks that let you do things like enable or disable a submit button, show or hide
+				does do is take the validity of each component that is required and determines whether or not your form is valid
+				or
+				invalid while providing handy callbacks that let you do things like enable or disable a submit button, show or
+				hide
 				an error banner
 				or really anything else you want to do on your form that is based on it's validity.
 			</p>
 
 			<p>
-				Because Big Brother is only concerned with the form's validity thus it is completely decoupled from any particular
+				Because Big Brother is only concerned with the form's validity thus it is completely decoupled from any
+				particular
 				"Front-end lib or framework". <br /> This means you can use it in either your React or your vanilla js/jQuery
 				projects.
 			</p>
@@ -77,11 +81,14 @@
 		</h3>
 		<div class="row column">
 			<p>
-				Big Brother is back and better than ever! Version 1, although very simple to use gave up some ground in the area of
+				Big Brother is back and better than ever! Version 1, although very simple to use gave up some ground in the area
+				of
 				stability when forms became overly complex. This was largely due to the fact
-				that Version 1 was based off of a "required field count" and kept track of the required fields via simple math. Big
+				that Version 1 was based off of a "required field count" and kept track of the required fields via simple math.
+				Big
 				Brother V2 has gone away from using the required field count to keep track of the
-				required components/controls in leau of a far more stable and flexible method of component registeration via their
+				required components/controls in leau of a far more stable and flexible method of component registeration via
+				their
 				Id's. Athough this requires just a bit more setup, the payoff in flexabilty and stability is far greater.
 			</p>
 		</div>
@@ -94,7 +101,8 @@
 			<div class="small-12 medium-6 large-6 columns">
 				<div class="callout callout-dark">
 					<p>
-						Big Brother is simple, really simple. Aside from that it's flexible enough to accomodate just about any kind of
+						Big Brother is simple, really simple. Aside from that it's flexible enough to accomodate just about any kind
+						of
 						form: simple, complex or completely dynamic. There's only a few public methods, a callback and a handy debug
 						console output to use.
 					</p>
@@ -142,11 +150,13 @@
 			<h5>Register all of your components / fields</h5>
 			<aside class="code special">
 				bigBrother.registerComponents([ <br>
-				&nbsp; &nbsp; {id: 'first-name', isValid: true, value: '', isRequired: true, isVisible: true, isDisabled: false},
+				&nbsp; &nbsp; {id: 'first-name', isValid: true, value: '', isRequired: true, isVisible: true, isDisabled:
+				false},
 				<br>
 				&nbsp; &nbsp; {id: 'last-name', isValid: true, value: '', isRequired: true, isVisible: true, isDisabled: false},
 				<br>
-				&nbsp; &nbsp; {id: 'email', isValid: true, value: '', isRequired: false, isVisible: true, isDisabled: false} <br>
+				&nbsp; &nbsp; {id: 'email', isValid: true, value: '', isRequired: false, isVisible: true, isDisabled: false}
+				<br>
 				]);
 			</aside>
 			<h5 class="top-margin-small">Or you can conditionally register a single component/field</h5>
@@ -164,13 +174,15 @@
 			<h5>In your field or component's onChange event, call BigBrother's SetValidity method passing in the following
 				required parameters</h5>
 			<aside class="code special">
-				bigBrother.setValidity(isFormDirty, componentId, isValid, shouldValidate, isVisible, isDisabled, isValidCallback,
+				bigBrother.setValidity(isFormDirty, componentId, isValid, shouldValidate, isVisible, isDisabled,
+				isValidCallback,
 				isInvalidCallback);
 			</aside>
 			<h5 class="top-margin-small">Example</h5>
 			<aside class="code special">
 				handleOnValidatedCallback(componentId, isValid, shouldValidate, isVisible, isDisabled, value) { <br>
-				&nbsp; &nbsp; this.bigBrother.setValidity(this.state.isFormDirty, componentId, isValid, shouldValidate, isVisible,
+				&nbsp; &nbsp; this.bigBrother.setValidity(this.state.isFormDirty, componentId, isValid, shouldValidate,
+				isVisible,
 				isDisabled, value, () => { <br>
 				&nbsp; &nbsp;&nbsp; &nbsp; dismissMessage(); // success <br>
 				&nbsp; &nbsp; }, () => { <br>
@@ -211,14 +223,18 @@
 				<br />
 				<em>{isDisabled}</em> [boolean] whether the component/field is visible or not (default is false)
 			</p>
-			<p class="api"><span class="api-title">Description:</span> Adds components/fields to Big Brother's watchful eye.</p>
+			<p class="api"><span class="api-title">Description:</span> Adds components/fields to Big Brother's watchful eye.
+			</p>
 			<p class="api"><span class="api-title">Example:</span> <br />
 				this.bigBrother.registerComponents([ <br>
-				&nbsp; &nbsp; {id: 'first-name', isValid: true, value: ' ', isRequired: true, isVisible: true, isDisabled: false},
+				&nbsp; &nbsp; {id: 'first-name', isValid: true, value: ' ', isRequired: true, isVisible: true, isDisabled:
+				false},
 				<br>
-				&nbsp; &nbsp; {id: 'last-name', isValid: true, value: ' ', isRequired: true, isVisible: true, isDisabled: false},
+				&nbsp; &nbsp; {id: 'last-name', isValid: true, value: ' ', isRequired: true, isVisible: true, isDisabled:
+				false},
 				<br>
-				&nbsp; &nbsp; {id: 'email', isValid: true, value: ' ', isRequired: false, isVisible: true, isDisabled: false} <br>
+				&nbsp; &nbsp; {id: 'email', isValid: true, value: ' ', isRequired: false, isVisible: true, isDisabled: false}
+				<br>
 				]);
 			</p>
 		</div>
@@ -244,7 +260,8 @@
 				watchful eye.</p>
 			<p class="api"><span class="api-title">Example:</span> <br />
 				bigBrother.registerComponent( <br>
-				&nbsp; &nbsp; {id: 'first-name', isValid: true, value: ' ', isRequired: true, isVisible: true, isDisabled: false}
+				&nbsp; &nbsp; {id: 'first-name', isValid: true, value: ' ', isRequired: true, isVisible: true, isDisabled:
+				false}
 				<br>
 				);
 			</p>
@@ -269,7 +286,8 @@
 				<em>{isVisible}</em> [boolean] whether or not this is currently visible <br />
 				<em>{isInvalidCallback}</em> [func] the callback you pass in that you want called if this component's validity
 				comes back as false (this is good for displaying an error banner) <br />
-				<em>{isValidCallback}</em> [func] the callback you pass in that you want called if this component's validity comes
+				<em>{isValidCallback}</em> [func] the callback you pass in that you want called if this component's validity
+				comes
 				back as true (this is good for hiding an error banner) <br />
 			</p>
 			<p class="api"><span class="api-title">Description:</span> Begins tracking that field or component's validity and
@@ -288,7 +306,8 @@
 			<p class="api"><span class="api-title">Description:</span> Gets the valid state of your form. This is good for not
 				allowing the user to submit the form until all fields are valid</p>
 			<p class="api"><span class="api-title">Example:</span> <br /> function submitForm(){ <br /> &nbsp;&nbsp;
-				this.setState({isFormDirty: true}); <br /> &nbsp;&nbsp; if (bigBrother.isValid()) { <br /> &nbsp;&nbsp;&nbsp;&nbsp;
+				this.setState({isFormDirty: true}); <br /> &nbsp;&nbsp; if (bigBrother.isValid()) { <br />
+				&nbsp;&nbsp;&nbsp;&nbsp;
 				saveFormValues(); <br /> &nbsp;&nbsp; }
 				else { <br /> &nbsp;&nbsp;&nbsp;&nbsp; displayErrorMessage(); <br /> &nbsp;&nbsp; } <br /> }
 			</p>
@@ -315,11 +334,11 @@
 					</a>
 				</div>
 				<div class="row">
-					<span class="credits"><span style="color: #7A0101;">Created by</span> Chris "Sweet Biscuits" Peele</span>
+					<span class="credits"><span style="color: #7A0101;">Created by</span><br> Chris "Sweet Biscuits" Peele</span>
 				</div>
 			</div>
 			<div class="small-3 columns text-right">
-				<img src="bigBrother.jpg" alt="" />
+				<img src="bb-logo-red-alt.png" alt="big brother validation logo" />
 			</div>
 		</div>
 	</footer>
