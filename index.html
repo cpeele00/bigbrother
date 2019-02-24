@@ -47,7 +47,32 @@
 				member!
 			</p>
 
-			<p>But, do not worry. Big Brother will protect you...if you comply.</p>
+			<p>
+				Why is form validation tricky and how does Big Brother help you ask?<br />
+				Several things need to be taken into account when validating a form (even a very basic one) such as:
+				<ul class="features">
+					<li>The validity of each input field that has validation.</li>
+					<li>Whether the input field is disabled or not. Required fields that are disabled should not affect the forms
+						validity.</li>
+					<li>Whether the input field is visible or not. Required fields that are not visible should not affect the
+						forms validity.</li>
+					<li>Dynamically added input fields that will affect the form's validity.</li>
+					<li>Dynamically removed input fields will also affect the form's validity.</li>
+					<li>Is the form dirty or pristine? Each state affects how you validate your form.</li>
+					<li>Halting execution of the form while the form is pristine but invalid.</li>
+					<li>Not showing validation errors on form load (pristine), even though the form is invalid.</li>
+					<li>Pre-populating your form with values (like an edit form) and how that affects validity.</li>
+					<li>Rolling up every input field's validty into the overall form validty and then acting on it.</li>
+					<li>
+						Hiding/showing elements, enabing/disabling buttons, showing/hiding message banners or any number of
+						actions
+						when each field's validity changes and when the overall form validity changes.
+					</li>
+					<li>Debugging through all of this while trying not to lose your mind.</li>
+				</ul>
+			</p>
+
+			<p>But, do not worry. Big Brother will help you. Big Brother will protect you...if you comply.</p>
 		</div>
 
 		<h3 class="top-margin text-center">
@@ -56,10 +81,15 @@
 		</h3>
 		<div class="row column">
 			<p>
-				Big Brother is a simple and flexible "form" validation lib that handles the validation and the coordination of
-				valid/invalid states of your form. It does NOT validate your fields or components themselves as that's the easy
-				part. <br /> What it
-				does do is take the validity of each component that is required and determines whether or not your form is valid
+				Big Brother is a simple and flexible "form" validation library that handles the validation and the coordination
+				of
+				valid/invalid states of your form. It does NOT validate your fields or components themselves (that's the easy
+				part). Each html input field or React component tells BigBrother whether it's valid or not based on whatever
+				validation rules
+				that govern that component.
+				<br />
+				What it
+				does do is take the validity of each component and determines whether or not your form is valid
 				or
 				invalid while providing handy callbacks that let you do things like enable or disable a submit button, show or
 				hide
@@ -68,9 +98,10 @@
 			</p>
 
 			<p>
-				Because Big Brother is only concerned with the form's validity thus it is completely decoupled from any
+				Because Big Brother is only concerned with the form's validity it is completely decoupled from any
 				particular
-				"Front-end lib or framework". <br /> This means you can use it in either your React or your vanilla js/jQuery
+				"Front-end library or framework". <br /> This means you can use it in either your React or your vanilla
+				js/jQuery
 				projects.
 			</p>
 		</div>
