@@ -1,8 +1,7 @@
 import { find, filter, forEach, map } from 'lodash-es';
 
 
-class BigBrotherV2 {
-
+class BigBrother {
   constructor(isDevMode = false) {
     this.isDevMode = isDevMode;
     this.registeredComponents = [];
@@ -184,4 +183,4 @@ class BigBrotherV2 {
 }
 
 
-export default BigBrotherV2;
+export default BigBrother;
