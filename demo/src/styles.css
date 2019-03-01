@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
+body {
+  background-color: #1c2022;
+  color: #eee;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+figure {
+  background-color: #666666;
+  border-radius: 5px;
+  padding: 15px;
+  color: #222
+}
+
+figure span {
+  font-size: .8rem;
+}
+
+figure i {
+  font-size: 1.3rem;
+  margin-right: 5px;
+}
+
+.btn {
+  background-color: #FBE5A9 !important;
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.textbox-dark,
+.textbox-dark:focus {
+  background-color: #555;
+  border-color: #333;
+  color: #eee;
+}
+
+.flash-message {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 15px;
+  z-index: 100;
+}
+
+.flash-message.success {
+  background-color: #00A86B;
+}
+
+.flash-message.error {
+  background-color: #7A0101;
+}
+
+.flash-message-header {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.big-brother-header {
+  width: 100%;
+  height: auto;
+  background-color: #111;
+  position: relative;
+  padding-top: 30px;
+  padding-bottom: 0px;
+  margin-bottom: 30px;
+}
+
+.big-brother-logo-container {
+  width: 390px;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+}
+
+.demo-type-header {
+  text-align: center; 
+  margin-top: 35px;
+  color: #999;
+}
+
+.top-margin {
+  margin-top: 25px;
+}
+
+.top-margin-med {
+  margin-top: 45px;
+}
+
+.tip-bold {
+  font-weight: bold;
+  margin-right: 5px;
+}
