@@ -20,7 +20,7 @@
     "test:watch": "nwb test-react --server"
   },
   "dependencies": {
-    "lodash-es": "^4.17.11"
+    "lodash-es": "^4.17.15"
   },
   "peerDependencies": {
     "react": "16.x"
@@ -33,7 +33,7 @@
     "react-dom": "^16.8.3"
   },
   "author": "Chris Peele aka Sweet Biscuits",
-  "homepage": "",
+  "homepage": "https://cpeele00.github.io/bigbrother/index.html",
   "license": "ISC",
   "repository": {
     "type": "git",

@@ -4,6 +4,13 @@ import { withFlashMessageContext } from './flashMessage';
 import bbLogo from './bb-logo-red-alt.png';
 
 
+// bigBrother.watchList(
+//   {id, value, shouldValidate, isValid, isVisible, isDisabled}
+// )
+
+// bigBrother.watch({});
+
+
 // Set default FormDirty state
 let isFormDirty = false;
 // Instantiate BigBrother and set debug tools to true
@@ -12,9 +19,9 @@ const bigBrother = new BigBrother(true);
 const Login = props => {
   // Register your form's components/controls here specifying their defaults
   bigBrother.registerComponents([
-    { id: 'name', isValid: true, value: '', isRequired: true, isVisible: true, isDisabled: false },
-    { id: 'email', isValid: true, value: '', isRequired: true, isVisible: true, isDisabled: false },
-    { id: 'phone', isValid: true, value: '', isRequired: false, isVisible: true, isDisabled: false }
+    { id: 'name', isRequired: false, value: 'a', isVisible: false, isDisabled: false, isValid: true },
+    { id: 'email', isRequired: true, value: '', isVisible: false, isDisabled: false, isValid: true }
+    // { id: 'phone', isValid: true, value: '', isRequired: false, isVisible: true, isDisabled: false }
   ]);
 
   return (

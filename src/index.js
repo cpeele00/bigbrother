@@ -2,8 +2,9 @@ import { find, filter, forEach, map } from 'lodash-es';
 
 
 class BigBrother {
-  constructor(isDevMode = false) {
+  constructor(isDevMode = false, isDebug = false) {
     this.isDevMode = isDevMode;
+    this.isDebug = isDebug;
     this.registeredComponents = [];
   }
 
@@ -98,8 +99,24 @@ class BigBrother {
   _trackComponent(component) {
     if (!find(this.registeredComponents, x => x.id === component.id)) {
 
-      if (!component.id)
-        throw new Error('Component id is required');
+      if (component.id === undefined)
+        throw new Error('component id is required');
+
+      if (component.value === undefined)
+        throw new Error('value cannot be undefined. You can set to an empty string if you do not wish to provide a value.');
+
+      // if (component.isValid === undefined)
+      //   throw new Error('isValid is required');
+
+      if (component.isRequired === undefined)
+        throw new Error('isRequired is required');
+
+      if (component.isVisible === undefined)
+        throw new Error('isVisible is required');
+
+      if (component.isDisabled === undefined)
+        throw new Error('isDisabled is required');
+
 
       const isValid = this._determineComponentValidityBasedOnArguments(component);
 
@@ -116,40 +133,51 @@ class BigBrother {
 
 
   _determineComponentValidityBasedOnArguments(component) {
-    const isComponentValid = () => {
-      if (component.isValid === false && component.isVisible === true)
+    if (component.isValid === false && component.isVisible === true) {
+      if (this.isDebug) console.log('hit #1: component.isValid === false && component.isVisible === true', component);
+      return false;
+    } else if (component.isValid === false && component.isVisible === false) {
+      if (this.isDebug) console.log('hit #2: component.isValid === false && component.isVisible === false', component);
+      return true;
+    } else if (component.isValid === true && component.isDisabled === true) {
+      if (this.isDebug) console.log('hit #3: component.isValid === true && component.isDisabled === true', component);
+      return true;
+    } else if (component.isValid === false && component.isVisible === false && component.isDisabled === false) {
+      return true;
+    }
+    else {
+      if (component.isRequired === false) {
+        if (this.isDebug) console.log('hit #4: component.isRequired === false', component);
+        return true;
+      } else if (component.isRequired === true && component.isDisabled === false && component.value) {
+        if (this.isDebug) console.log('hit #5: component.isRequired === true && component.isDisabled === false && component.value', component);
+        return true;
+      } else if (component.isRequired === true && component.isDisabled === true && component.value) {
+        if (this.isDebug) console.log('hit #6: component.isRequired === true && component.isDisabled === true && component.value', component);
         return false;
-      else if (component.isValid === false && component.isVisible === false)
+      } else if (component.isRequired === true && component.isVisible === true && !component.value) {
+        if (this.isDebug) console.log('hit #7: component.isRequired === true && component.isVisible === true && !component.value', component);
+        return false;
+      } else if (component.isRequired === true && component.isVisible === false && !component.value) {
+        if (this.isDebug) console.log('hit #8: component.isRequired === true && component.isVisible === false && !component.value', component);
         return true;
-      else if (component.isValid === true && component.isDisabled === true)
+      } else if (component.isRequired === true && component.isVisible === true && component.value) {
+        if (this.isDebug) console.log('hit #9: component.isRequired === true && component.isVisible === true && component.value', component);
         return true;
-      else {
-        if (component.isRequired === false)
-          return true;
-        else if (component.isRequired === true && component.isDisabled === false && component.value)
-          return true;
-        else if (component.isRequired === true && component.isDisabled === true && component.value)
-          return false;
-        else if (component.isRequired === true && component.isVisible === true && !component.value)
-          return false;
-        else if (component.isRequired === true && component.isVisible === false && !component.value)
-          return true;
-        else if (component.isRequired === true && component.isVisible === true && component.value)
-          return true;
-        else if (component.isRequired === true && component.isVisible === true)
-          return false;
-        else if (component.isRequired === true && component.isVisible === false)
-          return true;
-        else if (component.isRequired === true && component.isDisabled === true)
-          return false;
-        else
-          return false;
+      } else if (component.isRequired === true && component.isVisible === true) {
+        if (this.isDebug) console.log('hit #10: component.isRequired === true && component.isVisible === true', component);
+        return false;
+      } else if (component.isRequired === true && component.isVisible === false) {
+        if (this.isDebug) console.log('hit #11: component.isRequired === true && component.isVisible === false', component);
+        return true;
+      } else if (component.isRequired === true && component.isDisabled === true) {
+        if (this.isDebug) console.log('hit #12: component.isRequired === true && component.isDisabled === true', component);
+        return false;
+      } else {
+        if (this.isDebug) console.log('hit #13: else', component);
+        return false;
       }
     };
-
-    const isValid = isComponentValid();
-
-    return isValid;
   }
 
 
@@ -163,7 +191,7 @@ class BigBrother {
       let isValid = this._determineComponentValidityBasedOnArguments(component);
 
       // check the validity of the registered component
-      if (isValid) { //TODO: i might have to add the determin check here...
+      if (isValid) {
         isComponentValid = true;
       } else {
         isComponentValid = false;
@@ -171,6 +199,7 @@ class BigBrother {
       }
     });
 
+    console.log('IS VALID: ', isComponentValid);
     return isComponentValid;
   }
 
