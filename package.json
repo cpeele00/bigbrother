@@ -1,6 +1,6 @@
 {
   "name": "bigbrother",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "a simple and flexible form valiation lib for React and plain JavaScript apps",
   "main": "lib/index.js",
   "module": "es/index.js",
