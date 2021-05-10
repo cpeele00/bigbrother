@@ -1,5 +1,7 @@
-import { find, filter, forEach, map } from 'lodash-es';
-
+import find from 'lodash/find';
+import filter from 'lodash/filter';
+import forEach from 'lodash/forEach';
+import map from 'lodash/map';
 
 class BigBrother {
   constructor(isDevMode = false, isDebug = false) {
@@ -199,7 +201,6 @@ class BigBrother {
       }
     });
 
-    console.log('IS VALID: ', isComponentValid);
     return isComponentValid;
   }
 

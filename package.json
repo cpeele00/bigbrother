@@ -1,6 +1,6 @@
 {
   "name": "bigbrother",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "a simple and flexible form valiation lib for React and plain JavaScript apps",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -20,7 +20,7 @@
     "test:watch": "nwb test-react --server"
   },
   "dependencies": {
-    "lodash-es": "^4.17.15"
+    "lodash": "^4.17.21"
   },
   "peerDependencies": {
     "react": "16.x"
